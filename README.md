@@ -1,2 +1,0 @@
-# Ethernet
-Ethernet stack

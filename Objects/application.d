@@ -1,0 +1,10 @@
+.\objects\application.o: src\Application.c
+.\objects\application.o: .\FreeRTOS\include\FreeRTOS.h
+.\objects\application.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\application.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\application.o: .\inc\FreeRTOSConfig.h
+.\objects\application.o: .\FreeRTOS\include\projdefs.h
+.\objects\application.o: .\FreeRTOS\include\portable.h
+.\objects\application.o: .\FreeRTOS\include\deprecated_definitions.h
+.\objects\application.o: .\FreeRTOS\portable\portmacro.h
+.\objects\application.o: .\FreeRTOS\include\mpu_wrappers.h

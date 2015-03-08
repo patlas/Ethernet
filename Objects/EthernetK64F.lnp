@@ -1,0 +1,15 @@
+--cpu Cortex-M4.fp
+".\objects\croutine.o"
+".\objects\event_groups.o"
+".\objects\list.o"
+".\objects\queue.o"
+".\objects\tasks.o"
+".\objects\timers.o"
+".\objects\port.o"
+".\objects\heap_4.o"
+".\objects\main.o"
+".\objects\startup_mk64f12.o"
+".\objects\system_mk64f12.o"
+--ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\EthernetK64F.map" -o .\Objects\EthernetK64F.axf
