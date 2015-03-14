@@ -95,7 +95,7 @@
 #define configPEX_KINETIS_SDK                     1 /* 1: project is a Kinetis SDK Processor Expert project; 0: No Kinetis Processor Expert project */
 
 #define configGENERATE_RUN_TIME_STATS             0 /* 1: generate runtime statistics; 0: no runtime statistics */
-#define configUSE_PREEMPTION                      1 /* 1: pre-emptive mode; 0: cooperative mode */
+#define configUSE_PREEMPTION                      0 /* 1: pre-emptive mode; 0: cooperative mode */
 #define configUSE_IDLE_HOOK                       0 /* 1: use Idle hook; 0: no Idle hook */
 #define configUSE_TICK_HOOK                       0 /* 1: use Tick hook; 0: no Tick hook */
 #define configUSE_MALLOC_FAILED_HOOK              0 /* 1: use MallocFailed hook; 0: no MallocFailed hook */
@@ -112,7 +112,7 @@
 #endif /* configPEX_KINETIS_SDK */
 #define configSYSTICK_USE_CORE_CLOCK              1 /* System Tick is using core clock  */
 #define configSYSTICK_CLOCK_DIVIDER               1 /* no divider */
-#define configSYSTICK_CLOCK_HZ                    ((configCPU_CLOCK_HZ)/configSYSTICK_CLOCK_DIVIDER) /* frequency of system tick counter */
+//#define configSYSTICK_CLOCK_HZ                    ((configCPU_CLOCK_HZ)/configSYSTICK_CLOCK_DIVIDER) /* frequency of system tick counter */
 #define configMINIMAL_STACK_SIZE                  ((unsigned portSHORT)200) /* staCoreck size in addressable stack units */
 /*----------------------------------------------------------*/
 /* Heap Memory */
@@ -179,7 +179,7 @@
 #define configCOMPILER_CF2_FSL               8 /* Freescale ColdFire V2 compiler */
 #define configCOMPILER_DSC_FSL               9 /* Freescale DSC compiler */
 
-#define configCOMPILER                            configCOMPILER_ARM_GCC
+#define configCOMPILER                            configCOMPILER_ARM_KEIL//configCOMPILER_ARM_GCC
 /* -------------------------------------------------------------------- */
 /* CPU family identification */
 #define configCPU_FAMILY_S08                 1  /* S08 core */
@@ -221,6 +221,17 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 
 /* Normal assert() semantics without relying on the provision of an assert.h header file. */
 #define configASSERT(x) if((x)==0) { taskDISABLE_INTERRUPTS(); for( ;; ); }
+
+
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION 1
+
+
+
+/* Interrupt handlers */
+#define vPortSVCHandler SVC_Handler
+#define xPortPendSVHandler PendSV_Handler
+#define xPortSysTickHandler SysTick_Handler
+
 
 #endif /* FREERTOS_CONFIG_H */
 
