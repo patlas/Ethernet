@@ -444,9 +444,9 @@
               <FilePath>.\FreeRTOS\portable\port.c</FilePath>
             </File>
             <File>
-              <FileName>heap_2.c</FileName>
+              <FileName>heap_4.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\FreeRTOS\portable\MemMang\heap_2.c</FilePath>
+              <FilePath>.\FreeRTOS\portable\MemMang\heap_4.c</FilePath>
             </File>
           </Files>
         </Group>
