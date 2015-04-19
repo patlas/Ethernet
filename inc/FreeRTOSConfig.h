@@ -225,6 +225,8 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION 1
 
+#define configCOMMAND_INT_MAX_OUTPUT_SIZE 1
+
 
 
 /* Interrupt handlers */

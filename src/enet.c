@@ -86,7 +86,7 @@ NVIC_EnableIRQ(ENET_Error_IRQn);
 
 //*************************************************************
 
-void MAC_SetAddress(void){
+void MAC_SetAddress(void/*uint8_t *ucMACAddress*/){
 	
 uint32_t value;
 	

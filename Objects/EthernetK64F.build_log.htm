@@ -17,27 +17,39 @@ Library Manager: ArmAr.exe V5.05 update 1 (build 106)
 Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
 CPU DLL:         SARMCM3.DLL V5.14.0.0
 Dialog DLL:      DCM.DLL V1.13.1.0
-Target DLL:      UL2CM3.DLL V1.155.0.0
+Target DLL:      Segger\JL2CM3.dll V2.99.13.0
 Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
-C:\Users\PatLas\Desktop\Ethernet\EthernetK64F.uvprojx
-Project File Date:  03/08/2015
+F:\SEM6\SKM\workspace\Ethernet\EthernetK64F.uvprojx
+Project File Date:  04/18/2015
 
 <h2>Output:</h2>
 Build target 'K64F'
 compiling main.c...
+compiling cliTask.c...
+tasks\cliTask.c(61): warning:  #1-D: last line of file ends without a newline
+                
+tasks\cliTask.c: 1 warning, 0 errors
+compiling streamTask.c...
+tasks\streamTask.c(21): warning:  #177-D: variable "xMoreDataToFollow" was declared but never referenced
+  BaseType_t xMoreDataToFollow;
+tasks\streamTask.c(23): warning:  #177-D: variable "pcWriteBuffer" was declared but never referenced
+        char pcWriteBuffer[MAX_OUTPUT_LENGTH];
+tasks\streamTask.c(40): warning:  #1-D: last line of file ends without a newline
+                
+tasks\streamTask.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=4240 RO-data=1056 RW-data=96 ZI-data=17728  
-".\Objects\EthernetK64F.axf" - 0 Error(s), 0 Warning(s).
+Program Size: Code=10128 RO-data=1688 RW-data=160 ZI-data=17928  
+".\Objects\EthernetK64F.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.4.2.0.pack
-                ARM::CMSIS:CORE:3.40.0
+                http://www.keil.com/pack/ARM.CMSIS.4.3.0.pack
+                ARM::CMSIS:CORE:4.1.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 3.40.0
+   * Component: CORE Version: 4.1.0
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.Kinetis_K60_DFP.1.3.0.pack
@@ -46,14 +58,13 @@ Package Vendor: Keil
    * Component: Startup Version: 1.0.0
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\PatLas\Desktop\Ethernet\RTE
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include
+  F:\SEM6\SKM\workspace\Ethernet\RTE
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include
   C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:3.40.0
-      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
+   * Component: ARM::CMSIS:CORE:4.1.0
 
    * Component: Keil::Device:Startup:1.0.0
       Source file:   Device\Source\ARM\startup_MK64F12.s

@@ -6,6 +6,10 @@
 #include "task.h"
 #include "timers.h"
 #include "semphr.h"
+#include "queue.h"
+
+#include "uart.h"
+#include "tasks.h"
 
 void abc(void *param){
 	
@@ -21,10 +25,16 @@ void test2(void *param){
 	while(1){
 		vTaskDelay( 1000 );
 		PTB->PTOR |= GPIO_PTOR_PTTO(1<<21);
+		UART0->D = 0x55;
 	}
 	
 }
 
+void vRegisterCLICommands(void);
+
+QueueHandle_t UartQueue;
+TaskHandle_t	CliTaskHandler, StreamReceivedTaskHandler;
+SemaphoreHandle_t DataStreamSemaphore;
 
 int main(void)
 {
@@ -46,10 +56,30 @@ int main(void)
 	//__enable_irq();
 	
 
+	uart_settings uart;
+	uart.Instance = 0;
+	uart.BaudRate = 9600;
+	uart.DataBits8_9 = 8;
+	uart.ParityType = PARITY_NONE;
+	uart.StopBits = 1;
 	
-	xTaskCreate(abc,"abc", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+2, NULL );
+	UART_Init(&uart);
 	
-	xTaskCreate(test2,"test2", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+2, NULL );
+	
+	UartQueue = xQueueCreate( 1, sizeof( RxStruct ) );
+	DataStreamSemaphore = xSemaphoreCreateBinary();
+	
+	xTaskCreate(abc,"abc", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
+	
+	xTaskCreate(test2,"test2", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
+	
+	xTaskCreate(vCommandConsoleTask,"CLI", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+2, &CliTaskHandler );
+	xTaskCreate(vStreamTask,"StreamData", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, &StreamReceivedTaskHandler );
+
+	vTaskSuspend(  CliTaskHandler );
+	vTaskSuspend(  StreamReceivedTaskHandler );
+	
+	vRegisterCLICommands();
 	
 	/* Start the scheduler. */
 	vTaskStartScheduler();
