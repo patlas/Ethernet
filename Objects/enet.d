@@ -1,0 +1,14 @@
+.\objects\enet.o: src\enet.c
+.\objects\enet.o: C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.3.0\Device\Include\MK64f12.h
+.\objects\enet.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\enet.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm4.h
+.\objects\enet.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h
+.\objects\enet.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h
+.\objects\enet.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmSimd.h
+.\objects\enet.o: C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.3.0\Device\Include\system_MK64F12.h
+.\objects\enet.o: .\inc\enet.h
+.\objects\enet.o: C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.3.0\Device\Include\MK64f12.h
+.\objects\enet.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\enet.o: .\inc\phy.h
+.\objects\enet.o: C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.3.0\Device\Include\MK64f12.h
+.\objects\enet.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

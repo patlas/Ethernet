@@ -359,13 +359,13 @@
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <useXO>0</useXO>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\FreeRTOS\include;.\FreeRTOS\portable;.\inc</IncludePath>
+              <IncludePath>.\FreeRTOS\include;.\FreeRTOS\portable;.\inc;.\CLI\inc;.\tasks</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -458,10 +458,52 @@
               <FileType>1</FileType>
               <FilePath>.\src\main.c</FilePath>
             </File>
+            <File>
+              <FileName>enet.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\enet.c</FilePath>
+            </File>
+            <File>
+              <FileName>phy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\phy.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\uart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Utilities</GroupName>
+          <GroupName>CLI</GroupName>
+          <Files>
+            <File>
+              <FileName>CLI-commands.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CLI\CLI-commands.c</FilePath>
+            </File>
+            <File>
+              <FileName>FreeRTOS_CLI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CLI\FreeRTOS_CLI.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Tasks</GroupName>
+          <Files>
+            <File>
+              <FileName>cliTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\tasks\cliTask.c</FilePath>
+            </File>
+            <File>
+              <FileName>streamTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\tasks\streamTask.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>::CMSIS</GroupName>

@@ -6,6 +6,12 @@
 #include "task.h"
 #include "timers.h"
 #include "semphr.h"
+#include "queue.h"
+
+#include "uart.h"
+#include "tasks.h"
+#include "enet.h"
+#include "phy.h"
 
 void abc(void *param){
 	
@@ -21,10 +27,16 @@ void test2(void *param){
 	while(1){
 		vTaskDelay( 1000 );
 		PTB->PTOR |= GPIO_PTOR_PTTO(1<<21);
+		UART0->D = 0x55;
 	}
 	
 }
 
+void vRegisterCLICommands(void);
+
+QueueHandle_t UartQueue;
+TaskHandle_t	CliTaskHandler, StreamReceivedTaskHandler;
+SemaphoreHandle_t DataStreamSemaphore;
 
 int main(void)
 {
@@ -46,10 +58,41 @@ int main(void)
 	//__enable_irq();
 	
 
+	uart_settings uart;
+	uart.Instance = 0;
+	uart.BaudRate = 9600;
+	uart.DataBits8_9 = 8;
+	uart.ParityType = PARITY_NONE;
+	uart.StopBits = 1;
 	
-	xTaskCreate(abc,"abc", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+2, NULL );
+	UART_Init(&uart);
+	enet_init();
+					/*	struct packet_fields packet;
+	uint64_t payload = 0xF81234142;
+uint64_t dest_add = 0x88AE1DDAF29D;
+uint64_t sour_add = 0xAEAEAEAEAEAB;
+uint8_t length = 0x8; //Size of payload in bytes
+
+packet.dest_add = &dest_add;
+packet.source_add = &sour_add;
+packet.length = &length;
+packet.payload_ptr = &payload;
+					SendRaw((uint8_t*) &payload, sizeof(payload));*/
 	
-	xTaskCreate(test2,"test2", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+2, NULL );
+	UartQueue = xQueueCreate( 1, sizeof( RxStruct ) );
+	DataStreamSemaphore = xSemaphoreCreateBinary();
+	
+	xTaskCreate(abc,"abc", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
+	
+	xTaskCreate(test2,"test2", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
+	
+	xTaskCreate(vCommandConsoleTask,"CLI", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+2, &CliTaskHandler );
+	xTaskCreate(vStreamTask,"StreamData", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, &StreamReceivedTaskHandler );
+
+	vTaskSuspend(  CliTaskHandler );
+	vTaskSuspend(  StreamReceivedTaskHandler );
+	
+	vRegisterCLICommands();
 	
 	/* Start the scheduler. */
 	vTaskStartScheduler();

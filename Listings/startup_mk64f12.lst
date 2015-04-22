@@ -1076,12 +1076,12 @@ ARM Macro Assembler    Page 17
               00000400 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=.\objects\startup_mk64f12.d -o.\objects\startup_mk64f12.o -IC:\
-Users\PatLas\Desktop\Ethernet\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\I
-nclude -IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.3.0\Device\Include --predef
-ine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 514" --predefine="_RTE_
- SETA 1" --predefine="MK64FN1M0xxx12 SETA 1" --list=.\listings\startup_mk64f12.
-lst RTE\Device\MK64FN1M0xxx12\startup_MK64F12.s
+erwork --depend=.\objects\startup_mk64f12.d -o.\objects\startup_mk64f12.o -IF:\
+SEM6\SKM\workspace\Ethernet\RTE -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Inc
+lude -IC:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.3.0\Device\Include --predefin
+e="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 514" --predefine="_RTE_ S
+ETA 1" --predefine="MK64FN1M0xxx12 SETA 1" --list=.\listings\startup_mk64f12.ls
+t RTE\Device\MK64FN1M0xxx12\startup_MK64F12.s
 
 
 
