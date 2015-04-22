@@ -233,6 +233,18 @@ memset(txBuffer, 0, sizeof(txBufferDesc));
 return 1;
 }
 
+uint8_t SendPing(struct ping_frame *frame){
+	
+	uint8_t dest_mac [6];
+	uint8_t *tmp_ptr = (uint8_t*) &frame->dest_mac_add;
+for(int j=5;j>=0;j--){
+	dest_mac[j] = *(tmp_ptr++);
+}
+
+memcpy(txBuffer[txBufferIndex], dest_mac, 6);
+	
+}
+
 /*
 void ENET_Receive_IRQHandler(void){
 	

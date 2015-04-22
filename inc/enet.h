@@ -28,6 +28,12 @@ struct packet_fields{
 	
 };
 
+struct ping_frame{
+	
+	uint64_t dest_mac_add;
+	uint32_t dest_ip_add;
+	
+};
 
 void MAC_DescInit(void);
 void GPIO_Init(void);
@@ -36,5 +42,6 @@ void MAC_SetAddress(void);
 void enet_init(void);
 uint8_t SendPacket(struct packet_fields *frame);
 uint8_t SendRaw(uint8_t *data, uint8_t bytecount);
+uint8_t SendPing(struct ping_frame *frame);
 
 
