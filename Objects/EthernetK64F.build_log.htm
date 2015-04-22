@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.14.0.0
 Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: PatLas PatLas, AGH, LIC=----
+License Information: Jan Dabros, AGH, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.14.0.0
@@ -21,35 +21,30 @@ Target DLL:      Segger\JL2CM3.dll V2.99.13.0
 Dialog DLL:      TCM.DLL V1.14.4.0
  
 <h2>Project:</h2>
-F:\SEM6\SKM\workspace\Ethernet\EthernetK64F.uvprojx
-Project File Date:  04/18/2015
+D:\Repozytoria\Ethernet_workspace_2\Ethernet\EthernetK64F.uvprojx
+Project File Date:  04/22/2015
 
 <h2>Output:</h2>
 Build target 'K64F'
 compiling main.c...
-compiling cliTask.c...
-tasks\cliTask.c(61): warning:  #1-D: last line of file ends without a newline
-                
-tasks\cliTask.c: 1 warning, 0 errors
-compiling streamTask.c...
-tasks\streamTask.c(21): warning:  #177-D: variable "xMoreDataToFollow" was declared but never referenced
-  BaseType_t xMoreDataToFollow;
-tasks\streamTask.c(23): warning:  #177-D: variable "pcWriteBuffer" was declared but never referenced
-        char pcWriteBuffer[MAX_OUTPUT_LENGTH];
-tasks\streamTask.c(40): warning:  #1-D: last line of file ends without a newline
-                
-tasks\streamTask.c: 3 warnings, 0 errors
+src\main.c(73): warning:  #550-D: variable "packet" was set but never used
+  struct packet_fields packet;
+src\main.c: 1 warning, 0 errors
+compiling enet.c...
+src\enet.c(32): warning:  #550-D: variable "rxBufferIndex" was set but never used
+  static uint8_t rxBufferIndex;
+src\enet.c: 1 warning, 0 errors
 linking...
-Program Size: Code=10128 RO-data=1688 RW-data=160 ZI-data=17928  
-".\Objects\EthernetK64F.axf" - 0 Error(s), 4 Warning(s).
+Program Size: Code=11228 RO-data=1688 RW-data=240 ZI-data=32040  
+".\Objects\EthernetK64F.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.4.3.0.pack
-                ARM::CMSIS:CORE:4.1.0
+                http://www.keil.com/pack/ARM.CMSIS.4.2.0.pack
+                ARM::CMSIS:CORE:3.40.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 4.1.0
+   * Component: CORE Version: 3.40.0
 
 Package Vendor: Keil
                 http://www.keil.com/pack/Keil.Kinetis_K60_DFP.1.3.0.pack
@@ -58,13 +53,14 @@ Package Vendor: Keil
    * Component: Startup Version: 1.0.0
 
 <h2>Collection of Component include folders:</h2>
-  F:\SEM6\SKM\workspace\Ethernet\RTE
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include
+  D:\Repozytoria\Ethernet_workspace_2\Ethernet\RTE
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.2.0\CMSIS\Include
   C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:4.1.0
+   * Component: ARM::CMSIS:CORE:3.40.0
+      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
 
    * Component: Keil::Device:Startup:1.0.0
       Source file:   Device\Source\ARM\startup_MK64F12.s

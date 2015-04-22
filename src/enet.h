@@ -1,4 +1,5 @@
 #include "MK64f12.h"
+#include <stdlib.h>
 
 #define configMAC_ADDR0 0xAB
 #define 	MK64_ETH_TX_BUFFER_COUNT   3
@@ -22,7 +23,7 @@ struct packet_fields{
 
 	uint64_t *dest_add;
 	uint64_t *source_add;
-	uint16_t *length; // length of payload in bytes
+	uint8_t *length; // length of payload in bytes
 	uint64_t *payload_ptr;
 	
 };
@@ -34,3 +35,4 @@ void SIM_Init(void);
 void MAC_SetAddress(void);
 void enet_init(void);
 uint8_t SendPacket(struct packet_fields *frame);
+uint8_t SendRaw(uint8_t *data, uint8_t bytecount);

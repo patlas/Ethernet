@@ -184,17 +184,20 @@ SIM_SCGC2 |= SIM_SCGC2_ENET_MASK; 		//Clock for ENET
 
 uint8_t SendPacket(struct packet_fields *frame){
 
-char lol[*(frame->length)];
-uint16_t tmp_length = HTOBE16(*(frame->length));
+int allpacksize = *(frame->length) + 14;
+unsigned int payloadsize = *(frame->length);
+	
+char *lol =(char*) malloc(allpacksize);
+uint16_t tmp_length = HTOBE16(payloadsize);
 uint16_t *tmp_ptr = &tmp_length;
 	
 memcpy(lol,frame->dest_add,6);
 memcpy(lol+6,frame->source_add,6);
 memcpy(lol+12,tmp_ptr,2);
-memcpy(lol+14,frame->payload_ptr,*(frame->length));
+memcpy(lol+14,frame->payload_ptr,payloadsize);
 
 //Copy user data to the transmit buffer
-memcpy(txBuffer[txBufferIndex],lol, 14 + *(frame->length));
+memcpy(txBuffer[txBufferIndex],lol, allpacksize);
 
 //Set frame length
 txBufferDesc[txBufferIndex][1] = HTOBE16(14 + *(frame->length));
@@ -202,7 +205,25 @@ txBufferDesc[txBufferIndex][1] = HTOBE16(14 + *(frame->length));
 txBufferDesc[txBufferIndex][8] = 0;
 
 txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_TC);
-txBufferIndex++;
+//txBufferIndex++;
+
+ENET->TDAR = ENET_TDAR_TDAR_MASK;
+
+return 1;
+}
+
+uint8_t SendRaw(uint8_t *data, uint8_t bytecount){
+
+//Copy user data to the transmit buffer
+memcpy(txBuffer[txBufferIndex], data, bytecount);
+
+//Set frame length
+txBufferDesc[txBufferIndex][1] = HTOBE16(bytecount);
+//Clear BDU flag
+txBufferDesc[txBufferIndex][8] = 0;
+
+txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_TC);
+//txBufferIndex++;
 
 ENET->TDAR = ENET_TDAR_TDAR_MASK;
 
