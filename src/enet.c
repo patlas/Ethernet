@@ -261,7 +261,7 @@ txBufferDesc[txBufferIndex][1] = HTOBE16(74);
 //Clear BDU flag
 txBufferDesc[txBufferIndex][8] = 0;
 
-txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_TC);
+txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_W | ENET_TBD0_TC);
 //txBufferIndex++;
 
 ENET->TDAR = ENET_TDAR_TDAR_MASK;
