@@ -34,8 +34,9 @@ void vStreamTask( void *pvParameters )
         if( xQueueReceive( UartQueue, &ReceivedStream,0 ) == pdTRUE )
         {
 						/* wysylac stream przez ethernet */
+					taskENTER_CRITICAL();
 					SendRaw(ReceivedStream.tx_buff, ReceivedStream.size);
-
+					taskEXIT_CRITICAL();
 					
 					
            //SendRawData(ReceivedStream.tx_buff, ReceivedStream.size);

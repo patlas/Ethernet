@@ -67,24 +67,26 @@ int main(void)
 	
 	UART_Init(&uart);
 	enet_init();
+						
 					/*	struct packet_fields packet;
-					
-				
-					
-	uint64_t payload = 0xF81234142;
+									
+uint64_t payload = 0xF81234142;
 uint64_t dest_add = 0x88AE1DDAF29D;
 uint64_t sour_add = 0xAEAEAEAEAEAB;
 uint8_t length = 0x8; //Size of payload in bytes
 
 packet.dest_add = &dest_add;
 packet.source_add = &sour_add;
-packet.length = &length;
+packet.length = length;
 packet.payload_ptr = &payload;
-					SendRaw((uint8_t*) &payload, sizeof(payload));*/
+//					SendRaw(ping,74); 
 	
 		struct ping_frame exmpl;
 		exmpl.dest_mac_add = 0x001122334455;
-		SendPing(&exmpl);
+		exmpl.dest_ip_add = 0x08080404;
+		//SendPing(&exmpl);
+		
+		*/
 	
 	UartQueue = xQueueCreate( 1, sizeof( RxStruct ) );
 	DataStreamSemaphore = xSemaphoreCreateBinary();

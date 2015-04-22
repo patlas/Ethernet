@@ -225,7 +225,6 @@ txBufferDesc[txBufferIndex][8] = 0;
 txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_W | ENET_TBD0_TC);
 //txBufferIndex++;
 
-
 ENET->TDAR = ENET_TDAR_TDAR_MASK;
 
 memset(txBufferDesc, 0, sizeof(txBufferDesc));
@@ -235,15 +234,44 @@ return 1;
 
 uint8_t SendPing(struct ping_frame *frame){
 	
-	uint8_t dest_mac [6];
+	uint8_t ethernet_header [] = {0x00,0x26,0x82,0xed,0xd5,0xd5,0x08,0x00};
+	uint8_t ip_header [] = {0x45,0x00,0x00,0x3c,0x35,0xe2,0x00,0x00,0x80,0x01,0x82,0xae,0x0a,0x16,0x6c,0x25};
+	uint8_t icmp_data [] = {0x08,0x00,0x42,0xf0,0x01,0x00,0x09,0x6c,0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68,
+													0x69,0x6a,0x6b,0x6c,0x6d,0x6e,0x6f,0x70,0x71,0x72,0x73,0x74,0x75,0x76,
+													0x77,0x61,0x62,0x63,0x64,0x65,0x66,0x67,0x68,0x69};
+		
+	uint8_t dest_mac [6], dest_ip [4];
 	uint8_t *tmp_ptr = (uint8_t*) &frame->dest_mac_add;
+	uint8_t *tmp_ptr2 = (uint8_t*) &frame->dest_ip_add;
 for(int j=5;j>=0;j--){
 	dest_mac[j] = *(tmp_ptr++);
 }
 
-memcpy(txBuffer[txBufferIndex], dest_mac, 6);
-	
+for(int j=3;j>=0;j--){
+	dest_ip[j] = *(tmp_ptr2++);
 }
+memcpy(txBuffer[txBufferIndex], dest_mac, 6);
+memcpy(txBuffer[txBufferIndex] + 6, ethernet_header, 8);
+memcpy(txBuffer[txBufferIndex] + 14, ip_header, sizeof(ip_header));
+memcpy(txBuffer[txBufferIndex] + 14 + sizeof(ip_header), dest_ip, 4);
+memcpy(txBuffer[txBufferIndex] + 18 + sizeof(ip_header), icmp_data, sizeof(icmp_data));
+
+//Set frame length
+txBufferDesc[txBufferIndex][1] = HTOBE16(74);
+//Clear BDU flag
+txBufferDesc[txBufferIndex][8] = 0;
+
+txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_TC);
+//txBufferIndex++;
+
+ENET->TDAR = ENET_TDAR_TDAR_MASK;
+
+
+memset(txBufferDesc, 0, sizeof(txBufferDesc));
+memset(txBuffer, 0, sizeof(txBufferDesc));
+return 1;
+}
+
 
 /*
 void ENET_Receive_IRQHandler(void){
