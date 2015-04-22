@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #define configMAC_ADDR0 0xAB
-#define 	MK64_ETH_TX_BUFFER_COUNT   3
+#define 	MK64_ETH_TX_BUFFER_COUNT   1
 #define 	MK64_ETH_TX_BUFFER_SIZE   1536
 #define 	MK64_ETH_RX_BUFFER_COUNT   6
 #define 	MK64_ETH_RX_BUFFER_SIZE   1536
@@ -23,7 +23,7 @@ struct packet_fields{
 
 	uint64_t *dest_add;
 	uint64_t *source_add;
-	uint8_t *length; // length of payload in bytes
+	uint8_t length; // length of payload in bytes
 	uint64_t *payload_ptr;
 	
 };

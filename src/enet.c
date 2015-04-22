@@ -73,7 +73,7 @@ MAC_DescInit();
 //Clear any pending interrupts
 ENET->EIR = 0xFFFFFFFF;
 //Enable desired interrupts
-ENET->EIMR = ENET_EIMR_TXF_MASK | ENET_EIMR_RXF_MASK | ENET_EIMR_EBERR_MASK;
+//ENET->EIMR = ENET_EIMR_TXF_MASK | ENET_EIMR_RXF_MASK | ENET_EIMR_EBERR_MASK;
 
 ENET_ECR |= ENET_ECR_ETHEREN_MASK;
 /* Indicate that there have been empty receive buffers produced */
@@ -184,10 +184,10 @@ SIM_SCGC2 |= SIM_SCGC2_ENET_MASK; 		//Clock for ENET
 
 uint8_t SendPacket(struct packet_fields *frame){
 
-int allpacksize = *(frame->length) + 14;
-unsigned int payloadsize = *(frame->length);
+uint8_t allpacksize = 14 + frame->length;
+unsigned int payloadsize = frame->length;
 	
-char *lol =(char*) malloc(allpacksize);
+uint8_t lol[200];
 uint16_t tmp_length = HTOBE16(payloadsize);
 uint16_t *tmp_ptr = &tmp_length;
 	
@@ -200,7 +200,7 @@ memcpy(lol+14,frame->payload_ptr,payloadsize);
 memcpy(txBuffer[txBufferIndex],lol, allpacksize);
 
 //Set frame length
-txBufferDesc[txBufferIndex][1] = HTOBE16(14 + *(frame->length));
+txBufferDesc[txBufferIndex][1] = HTOBE16(14 + (frame->length));
 //Clear BDU flag
 txBufferDesc[txBufferIndex][8] = 0;
 
@@ -222,11 +222,14 @@ txBufferDesc[txBufferIndex][1] = HTOBE16(bytecount);
 //Clear BDU flag
 txBufferDesc[txBufferIndex][8] = 0;
 
-txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_TC);
+txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_W | ENET_TBD0_TC);
 //txBufferIndex++;
+
 
 ENET->TDAR = ENET_TDAR_TDAR_MASK;
 
+memset(txBufferDesc, 0, sizeof(txBufferDesc));
+memset(txBuffer, 0, sizeof(txBufferDesc));
 return 1;
 }
 
