@@ -503,6 +503,11 @@
               <FileType>1</FileType>
               <FilePath>.\tasks\streamTask.c</FilePath>
             </File>
+            <File>
+              <FileName>pingTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\tasks\pingTask.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
