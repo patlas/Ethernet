@@ -12,6 +12,12 @@
 #include "tasks.h"
 #include "enet.h"
 #include "phy.h"
+<<<<<<< HEAD
+=======
+#include <string.h>
+#include <stdio.h>
+
+>>>>>>> 91cb155c807c185c4f360529bdb6ff91d6fdb22f
 
 void abc(void *param){
 	
@@ -67,8 +73,14 @@ int main(void)
 	
 	UART_Init(&uart);
 	enet_init();
+<<<<<<< HEAD
 					/*	struct packet_fields packet;
 	uint64_t payload = 0xF81234142;
+=======
+struct packet_fields packet;
+	
+uint64_t payload = 0xF81234142;
+>>>>>>> 91cb155c807c185c4f360529bdb6ff91d6fdb22f
 uint64_t dest_add = 0x88AE1DDAF29D;
 uint64_t sour_add = 0xAEAEAEAEAEAB;
 uint8_t length = 0x8; //Size of payload in bytes
@@ -77,6 +89,7 @@ packet.dest_add = &dest_add;
 packet.source_add = &sour_add;
 packet.length = &length;
 packet.payload_ptr = &payload;
+<<<<<<< HEAD
 					SendRaw((uint8_t*) &payload, sizeof(payload));*/
 	
 	UartQueue = xQueueCreate( 1, sizeof( RxStruct ) );
@@ -84,6 +97,15 @@ packet.payload_ptr = &payload;
 	
 	xTaskCreate(abc,"abc", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
 	
+=======
+					SendRaw((uint8_t*) &payload, sizeof(payload));
+	
+	UartQueue = xQueueCreate( 1, sizeof( RxStruct ) );
+	DataStreamSemaphore = xSemaphoreCreateBinary();
+	
+	xTaskCreate(abc,"abc", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
+	
+>>>>>>> 91cb155c807c185c4f360529bdb6ff91d6fdb22f
 	xTaskCreate(test2,"test2", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
 	
 	xTaskCreate(vCommandConsoleTask,"CLI", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+2, &CliTaskHandler );

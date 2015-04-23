@@ -27,3 +27,13 @@
 *.i*86
 *.x86_64
 *.hex
+
+# precompiled
+*.map
+*.lst
+*.htm
+*.crf
+*.d
+*.dep
+*.axf
+*.
