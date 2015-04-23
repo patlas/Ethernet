@@ -5,6 +5,7 @@
 #include "FreeRTOS_CLI.h"
 #include "task.h"
 #include "semphr.h"
+#include "queue.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -24,8 +25,8 @@ takes a variable number of parameters that the command simply echos back one at
 a time. */
 static const CLI_Command_Definition_t xPingICMP =
 {
-	"answer_ping",
-	"\r\nAnswer ping to host\r\n\r\n",
+	"send_ping",
+	"\r\nSend ICMP ping frame\r\n\r\n",
 	prvTransmitPing, /* The function to run. */
 	2 /* The user can enter any number of commands. */
 };
@@ -53,6 +54,10 @@ void vRegisterCLICommands( void )
 
 static BaseType_t prvTransmitPing( char *pcWriteBuffer, size_t xWriteBufferLen, const char *pcCommandString )
 {
+extern QueueHandle_t UartQueue;
+extern TaskHandle_t	PingTransmitTaskHandler;
+	
+	
 const char *pcParameter1,*pcParameter2;
 BaseType_t lParameterStringLength, xReturn;
 static BaseType_t lParameterNumber = 0;
@@ -101,7 +106,13 @@ static BaseType_t lParameterNumber = 0;
 				pcWriteBuffer[9] =  atoi(strtok( NULL,"-"));
 				pcWriteBuffer[10] =  atoi(strtok( NULL,"-"));
 				
-		}		
+		}	
+		RxStruct tmp;
+		tmp.size=11;
+		tmp.tx_buff = (uint8_t*)pcWriteBuffer;
+		
+		xQueueSend( UartQueue, &tmp,NULL );
+		vTaskResume( PingTransmitTaskHandler );
 		xReturn = pdFALSE;
 
 	return xReturn;

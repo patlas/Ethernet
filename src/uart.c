@@ -7,6 +7,7 @@ RxStruct RxSTREAM;
 uint8_t RxBuff[100];
 uint8_t RxStreamBuff[100];
 
+
 volatile bool is_stream = false;
 
 extern QueueHandle_t UartQueue;
@@ -99,6 +100,7 @@ bool UART_Init( uart_settings *settings){
 	
 	RxSTREAM.size = 0;
 	RxSTREAM.tx_buff = RxStreamBuff;
+	
 	
 	
 	return true;

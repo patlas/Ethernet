@@ -27,7 +27,7 @@ void test2(void *param){
 	while(1){
 		vTaskDelay( 1000 );
 		PTB->PTOR |= GPIO_PTOR_PTTO(1<<21);
-		UART0->D = 0x55;
+		//UART0->D = 0x55;
 	}
 	
 }
@@ -35,7 +35,7 @@ void test2(void *param){
 void vRegisterCLICommands(void);
 
 QueueHandle_t UartQueue;
-TaskHandle_t	CliTaskHandler, StreamReceivedTaskHandler;
+TaskHandle_t	CliTaskHandler, StreamReceivedTaskHandler, PingTransmitTaskHandler;
 SemaphoreHandle_t DataStreamSemaphore;
 
 int main(void)
@@ -66,6 +66,7 @@ int main(void)
 	uart.StopBits = 1;
 	
 	UART_Init(&uart);
+	UART0->D = 0x55;
 	enet_init();
 						
 					/*	struct packet_fields packet;
@@ -91,15 +92,17 @@ packet.payload_ptr = &payload;
 	UartQueue = xQueueCreate( 1, sizeof( RxStruct ) );
 	DataStreamSemaphore = xSemaphoreCreateBinary();
 	
-	xTaskCreate(abc,"abc", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
+	xTaskCreate(abc,"abc", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY, NULL );
 	
-	xTaskCreate(test2,"test2", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, NULL );
+	xTaskCreate(test2,"test2", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY, NULL );
 	
 	xTaskCreate(vCommandConsoleTask,"CLI", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+2, &CliTaskHandler );
 	xTaskCreate(vStreamTask,"StreamData", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, &StreamReceivedTaskHandler );
+	xTaskCreate(vPingTask,"PingData", configMINIMAL_STACK_SIZE, (void*)NULL, tskIDLE_PRIORITY+1, &PingTransmitTaskHandler );
 
 	vTaskSuspend(  CliTaskHandler );
 	vTaskSuspend(  StreamReceivedTaskHandler );
+	vTaskSuspend(	 PingTransmitTaskHandler );
 	
 	vRegisterCLICommands();
 	
