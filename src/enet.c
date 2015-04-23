@@ -206,27 +206,6 @@ txBufferDesc[txBufferIndex][8] = 0;
 
 txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_TC);
 //txBufferIndex++;
-<<<<<<< HEAD
-=======
-
-ENET->TDAR = ENET_TDAR_TDAR_MASK;
-
-return 1;
-}
-
-uint8_t SendRaw(uint8_t *data, uint8_t bytecount){
-
-//Copy user data to the transmit buffer
-memcpy(txBuffer[txBufferIndex], data, bytecount);
-
-//Set frame length
-txBufferDesc[txBufferIndex][1] = HTOBE16(bytecount);
-//Clear BDU flag
-txBufferDesc[txBufferIndex][8] = 0;
-
-txBufferDesc[txBufferIndex][0] = HTOBE16(ENET_TBD0_R | ENET_TBD0_L | ENET_TBD0_TC);
-//txBufferIndex++;
->>>>>>> 91cb155c807c185c4f360529bdb6ff91d6fdb22f
 
 ENET->TDAR = ENET_TDAR_TDAR_MASK;
 

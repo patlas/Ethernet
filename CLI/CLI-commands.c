@@ -138,7 +138,7 @@ static BaseType_t lParameterNumber = 0;
 
 		if( pcParameter1 != NULL )
 		{
-			/* Pierwszy parametr to IP, pierwsze 4 bajty to adres IP */
+			
 				memset( pcWriteBuffer, 0x00, xWriteBufferLen );
 				RxSTREAM.stream_size =  atoi((char*)pcParameter1);
 				//xSemaphoreTake(DataStreamSemaphore,0 );

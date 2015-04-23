@@ -36,3 +36,6 @@
 *.d
 *.dep
 *.axf
+*.ini
+*.iex
+*.lnp

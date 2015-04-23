@@ -120,15 +120,18 @@ void UART0_RX_TX_IRQHandler(void){
 				}
 				else{
 					xQueueSendFromISR ( UartQueue, &RxDATA,NULL );
+					RxDATA.size=0;
 					xTaskResumeFromISR( CliTaskHandler );
 				}
 		}
 		else{
 			RxSTREAM.tx_buff[RxSTREAM.size] = tmp;
 			RxSTREAM.size++;
-			if( (RxSTREAM.stream_size--)<1 ){ // sprawdzic czy <1 czy moze 2??
+			if( (RxSTREAM.stream_size--)<2 ){ // sprawdzic czy <1 czy moze 2??
 				is_stream=false;
 				xQueueSendFromISR ( UartQueue, &RxSTREAM,NULL );
+				RxSTREAM.size=0;
+				RxSTREAM.stream_size=0;
 				xTaskResumeFromISR( StreamReceivedTaskHandler );
 			}
 		}
